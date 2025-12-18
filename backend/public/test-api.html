@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Travel Tour API Test</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                padding: 20px;
+                min-height: 100vh;
+            }
+
+            .container {
+                max-width: 1400px;
+                margin: 0 auto;
+                background: white;
+                border-radius: 16px;
+                padding: 40px;
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+                animation: fadeIn 0.5s ease-in-out;
+            }
+
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+
+            h1 {
+                color: #1a202c;
+                margin-bottom: 8px;
+                text-align: center;
+                font-size: 32px;
+                font-weight: 700;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+
+            .subtitle {
+                text-align: center;
+                color: #718096;
+                margin-bottom: 30px;
+                font-size: 16px;
+            }
+
+            .form-group {
+                margin-bottom: 16px;
+            }
+
+            .form-row {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 16px;
+            }
+
+            label {
+                display: block;
+                margin-bottom: 6px;
+                color: #2d3748;
+                font-weight: 600;
+                font-size: 13px;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+
+            input,
+            textarea {
+                width: 100%;
+                padding: 12px 16px;
+                border: 2px solid #e2e8f0;
+                border-radius: 8px;
+                font-size: 14px;
+                transition: all 0.3s ease;
+                background: #f7fafc;
+            }
+
+            input:focus,
+            textarea:focus {
+                outline: none;
+                border-color: #667eea;
+                background: white;
+                box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            }
+
+            button {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                padding: 12px 28px;
+                border: none;
+                border-radius: 8px;
+                cursor: pointer;
+                font-size: 14px;
+                font-weight: 600;
+                transition: all 0.3s ease;
+                box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+            }
+
+            button:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+            }
+
+            button:active {
+                transform: translateY(0);
+            }
+
+            button:disabled {
+                background: #cbd5e0;
+                cursor: not-allowed;
+                box-shadow: none;
+            }
+
+            .response {
+                margin-top: 16px;
+                padding: 16px;
+                background: #f7fafc;
+                border-radius: 8px;
+                border: 2px solid #e2e8f0;
+                max-height: 400px;
+                overflow-y: auto;
+                animation: slideDown 0.3s ease;
+            }
+
+            @keyframes slideDown {
+                from { opacity: 0; max-height: 0; }
+                to { opacity: 1; max-height: 400px; }
+            }
+
+            .response pre {
+                margin: 0;
+                white-space: pre-wrap;
+                word-wrap: break-word;
+                font-size: 13px;
+                color: #2d3748;
+                font-family: 'Courier New', monospace;
+            }
+
+            .success {
+                border-color: #48bb78;
+                background: #f0fff4;
+            }
+
+            .error {
+                border-color: #f56565;
+                background: #fff5f5;
+            }
+
+            .token-display {
+                background: linear-gradient(135deg, #fef5e7 0%, #fdebd0 100%);
+                padding: 16px;
+                border-radius: 12px;
+                margin-bottom: 20px;
+                word-wrap: break-word;
+                font-size: 12px;
+                border: 2px solid #f6e05e;
+                box-shadow: 0 2px 8px rgba(246, 224, 94, 0.2);
+            }
+
+            .token-display strong {
+                color: #975a16;
+                display: block;
+                margin-bottom: 8px;
+            }
+
+            .token-display #accessToken {
+                color: #744210;
+                font-family: 'Courier New', monospace;
+            }
+
+            .info {
+                background: linear-gradient(135deg, #e6fffa 0%, #b2f5ea 100%);
+                padding: 20px;
+                border-radius: 12px;
+                margin-bottom: 24px;
+                border: 2px solid #81e6d9;
+                box-shadow: 0 2px 8px rgba(129, 230, 217, 0.2);
+            }
+
+            .info h3 {
+                color: #234e52;
+                margin-bottom: 12px;
+                font-size: 16px;
+            }
+
+            .info ul {
+                margin-left: 20px;
+                list-style: none;
+            }
+
+            .info li {
+                margin-bottom: 8px;
+                color: #2c7a7b;
+                padding-left: 20px;
+                position: relative;
+            }
+
+            .info li::before {
+                content: "✓";
+                position: absolute;
+                left: 0;
+                color: #38b2ac;
+                font-weight: bold;
+            }
+
+            .module-section {
+                margin-bottom: 20px;
+                background: #fff;
+                border-radius: 12px;
+                overflow: hidden;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+                border: 2px solid #e2e8f0;
+                transition: all 0.3s ease;
+            }
+
+            .module-section:hover {
+                box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+            }
+
+            .module-header {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                padding: 18px 24px;
+                cursor: pointer;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                transition: all 0.3s ease;
+            }
+
+            .module-header:hover {
+                background: linear-gradient(135deg, #5568d3 0%, #6b3f8e 100%);
+            }
+
+            .module-header h2 {
+                margin: 0;
+                font-size: 18px;
+                color: white;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .module-toggle {
+                font-size: 24px;
+                transition: transform 0.3s ease;
+                font-weight: bold;
+            }
+
+            .module-toggle.active {
+                transform: rotate(180deg);
+            }
+
+            .module-content {
+                display: none;
+                padding: 24px;
+                background: #f7fafc;
+            }
+
+            .module-content.active {
+                display: block;
+                animation: fadeIn 0.3s ease;
+            }
+
+            .api-item {
+                margin-bottom: 20px;
+                padding: 20px;
+                background: white;
+                border-radius: 10px;
+                border: 2px solid #e2e8f0;
+                transition: all 0.3s ease;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            }
+
+            .api-item:hover {
+                border-color: #667eea;
+                box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+                transform: translateY(-2px);
+            }
+
+            .api-item h3 {
+                color: #667eea;
+                margin-bottom: 16px;
+                font-size: 16px;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+
+            .api-item:last-child {
+                margin-bottom: 0;
+            }
+
+            .coming-soon {
+                color: #718096;
+                font-style: italic;
+                padding: 40px;
+                text-align: center;
+                background: white;
+                border-radius: 10px;
+                border: 2px dashed #cbd5e0;
+            }
+
+            /* Scrollbar styling */
+            ::-webkit-scrollbar {
+                width: 8px;
+                height: 8px;
+            }
+
+            ::-webkit-scrollbar-track {
+                background: #f1f1f1;
+                border-radius: 10px;
+            }
+
+            ::-webkit-scrollbar-thumb {
+                background: #667eea;
+                border-radius: 10px;
+            }
+
+            ::-webkit-scrollbar-thumb:hover {
+                background: #5568d3;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>🚀 Travel Tour API Test</h1>
+            <p class="subtitle">Test các API endpoints của hệ thống</p>
+
+            <div class="info">
+                <h3>📝 Thông tin đăng nhập mặc định:</h3>
+                <ul>
+                    <li><strong>Admin:</strong> admin@travel.com / 123456</li>
+                    <li><strong>User 1:</strong> nguyenvana@gmail.com / 123456</li>
+                    <li><strong>User 2:</strong> tranthib@gmail.com / 123456</li>
+                </ul>
+            </div>
+
+            <!-- Token Display -->
+            <div id="tokenSection" style="display: none">
+                <div class="token-display">
+                    <strong>Access Token:</strong>
+                    <div id="accessToken" style="margin-top: 5px"></div>
+                </div>
+            </div>
+
+            <!-- ============================================ -->
+            <!-- MODULE: AUTHENTICATION -->
+            <!-- ============================================ -->
+            <div class="module-section">
+                <div class="module-header" onclick="toggleModule('authModule')">
+                    <h2>🔐 Authentication (Xác thực)</h2>
+                    <span class="module-toggle" id="authModuleToggle">▼</span>
+                </div>
+                <div class="module-content" id="authModule">
+                    
+                    <!-- API: Register -->
+                    <div class="api-item">
+                        <h3>📝 Đăng ký (Register)</h3>
+                    <!-- API: Register -->
+                    <div class="api-item">
+                        <h3>📝 Đăng ký (Register)</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Username</label>
+                                <input type="text" id="regUsername" value="testuser" placeholder="Nhập username" />
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" id="regEmail" value="testuser@gmail.com" placeholder="Nhập email" />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>First Name</label>
+                                <input type="text" id="regFirstName" value="Test" placeholder="Nhập tên" />
+                            </div>
+                            <div class="form-group">
+                                <label>Last Name</label>
+                                <input type="text" id="regLastName" value="User" placeholder="Nhập họ" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" id="regPassword" value="123456" placeholder="Nhập mật khẩu (tối thiểu 6 ký tự)" />
+                        </div>
+                        <button onclick="register()">🚀 Đăng ký ngay</button>
+                        <div id="registerResponse" class="response" style="display: none"></div>
+                    </div>
+
+                    <!-- API: Login -->
+                    <div class="api-item">
+                        <h3>🔐 Đăng nhập (Login)</h3>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" id="loginEmail" value="admin@travel.com" placeholder="Nhập email" />
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" id="loginPassword" value="123456" placeholder="Nhập mật khẩu" />
+                        </div>
+                        <button onclick="login()">🔓 Đăng nhập</button>
+                        <div id="loginResponse" class="response" style="display: none"></div>
+                    </div>
+
+                    <!-- API: Get Current User -->
+                    <div class="api-item">
+                        <h3>👤 Lấy thông tin user hiện tại (Get Me)</h3>
+                        <button onclick="getCurrentUser()">📋 Lấy thông tin</button>
+                        <div id="meResponse" class="response" style="display: none"></div>
+                    </div>
+
+                    <!-- API: Refresh Token -->
+                    <div class="api-item">
+                        <h3>🔄 Làm mới token (Refresh Token)</h3>
+                        <button onclick="refreshToken()">🔄 Refresh Token</button>
+                        <div id="refreshResponse" class="response" style="display: none"></div>
+                    </div>
+
+                    <!-- API: Logout -->
+                    <div class="api-item">
+                        <h3>🚪 Đăng xuất (Logout)</h3>
+                        <button onclick="logout()">👋 Đăng xuất</button>
+                        <div id="logoutResponse" class="response" style="display: none"></div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ============================================ -->
+            <!-- MODULE: USER MANAGEMENT -->
+            <!-- ============================================ -->
+            <div class="module-section">
+                <div class="module-header" onclick="toggleModule('userModule')">
+                    <h2>👥 User Management (Quản lý người dùng)</h2>
+                    <span class="module-toggle" id="userModuleToggle">▼</span>
+                </div>
+                <div class="module-content" id="userModule">
+                    
+                    <div class="coming-soon">
+                        <h3>🚧 API đang được phát triển</h3>
+                        <p>Module này sẽ sớm được hoàn thiện...</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ============================================ -->
+            <!-- MODULE: TOUR MANAGEMENT -->
+            <!-- ============================================ -->
+            <div class="module-section">
+                <div class="module-header" onclick="toggleModule('tourModule')">
+                    <h2>🗺️ Tour Management (Quản lý tour)</h2>
+                    <span class="module-toggle" id="tourModuleToggle">▼</span>
+                </div>
+                <div class="module-content" id="tourModule">
+                    
+                    <div class="coming-soon">
+                        <h3>🚧 API đang được phát triển</h3>
+                        <p>Module này sẽ sớm được hoàn thiện...</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ============================================ -->
+            <!-- MODULE: BOOKING MANAGEMENT -->
+            <!-- ============================================ -->
+            <div class="module-section">
+                <div class="module-header" onclick="toggleModule('bookingModule')">
+                    <h2>📅 Booking Management (Quản lý đặt tour)</h2>
+                    <span class="module-toggle" id="bookingModuleToggle">▼</span>
+                </div>
+                <div class="module-content" id="bookingModule">
+                    
+                    <div class="coming-soon">
+                        <h3>🚧 API đang được phát triển</h3>
+                        <p>Module này sẽ sớm được hoàn thiện...</p>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <script>
+            const API_URL = "http://localhost:3000/api";
+            let accessToken = "";
+            let refreshTokenValue = "";
+
+            // Toggle module function
+            function toggleModule(moduleId) {
+                const content = document.getElementById(moduleId);
+                const toggle = document.getElementById(moduleId + 'Toggle');
+                
+                if (content.classList.contains('active')) {
+                    content.classList.remove('active');
+                    toggle.classList.remove('active');
+                } else {
+                    content.classList.add('active');
+                    toggle.classList.add('active');
+                }
+            }
+
+            // Helper function to display response
+            function displayResponse(elementId, data, isError = false) {
+                const element = document.getElementById(elementId);
+                element.style.display = "block";
+                element.className = `response ${isError ? "error" : "success"}`;
+                element.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+            }
+
+            // Helper function to update token display
+            function updateTokenDisplay() {
+                if (accessToken) {
+                    document.getElementById("tokenSection").style.display = "block";
+                    document.getElementById("accessToken").textContent = accessToken;
+                } else {
+                    document.getElementById("tokenSection").style.display = "none";
+                }
+            }
+
+            // 1. Register
+            async function register() {
+                try {
+                    const response = await fetch(`${API_URL}/auth/register`, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            userName: document.getElementById("regUsername").value,
+                            firstName: document.getElementById("regFirstName").value,
+                            lastName: document.getElementById("regLastName").value,
+                            email: document.getElementById("regEmail").value,
+                            password: document.getElementById("regPassword").value,
+                        }),
+                    });
+
+                    const data = await response.json();
+                    displayResponse("registerResponse", data, !response.ok);
+                } catch (error) {
+                    displayResponse("registerResponse", { error: error.message }, true);
+                }
+            }
+
+            // 2. Login
+            async function login() {
+                try {
+                    const response = await fetch(`${API_URL}/auth/login`, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            email: document.getElementById("loginEmail").value,
+                            password: document.getElementById("loginPassword").value,
+                        }),
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok && data.data) {
+                        accessToken = data.data.accessToken;
+                        refreshTokenValue = data.data.refreshToken;
+                        updateTokenDisplay();
+                    }
+
+                    displayResponse("loginResponse", data, !response.ok);
+                } catch (error) {
+                    displayResponse("loginResponse", { error: error.message }, true);
+                }
+            }
+
+            // 3. Get Current User
+            async function getCurrentUser() {
+                try {
+                    if (!accessToken) {
+                        displayResponse("meResponse", { error: "Vui lòng đăng nhập trước" }, true);
+                        return;
+                    }
+
+                    const response = await fetch(`${API_URL}/auth/me`, {
+                        method: "GET",
+                        headers: {
+                            Authorization: `Bearer ${accessToken}`,
+                        },
+                    });
+
+                    const data = await response.json();
+                    displayResponse("meResponse", data, !response.ok);
+                } catch (error) {
+                    displayResponse("meResponse", { error: error.message }, true);
+                }
+            }
+
+            // 4. Refresh Token
+            async function refreshToken() {
+                try {
+                    if (!refreshTokenValue) {
+                        displayResponse(
+                            "refreshResponse",
+                            { error: "Vui lòng đăng nhập trước" },
+                            true
+                        );
+                        return;
+                    }
+
+                    const response = await fetch(`${API_URL}/auth/refresh`, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            refreshToken: refreshTokenValue,
+                        }),
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok && data.data) {
+                        accessToken = data.data.accessToken;
+                        updateTokenDisplay();
+                    }
+
+                    displayResponse("refreshResponse", data, !response.ok);
+                } catch (error) {
+                    displayResponse("refreshResponse", { error: error.message }, true);
+                }
+            }
+
+            // 5. Logout
+            async function logout() {
+                try {
+                    if (!refreshTokenValue) {
+                        displayResponse(
+                            "logoutResponse",
+                            { error: "Vui lòng đăng nhập trước" },
+                            true
+                        );
+                        return;
+                    }
+
+                    const response = await fetch(`${API_URL}/auth/logout`, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            refreshToken: refreshTokenValue,
+                        }),
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok) {
+                        accessToken = "";
+                        refreshTokenValue = "";
+                        updateTokenDisplay();
+                    }
+
+                    displayResponse("logoutResponse", data, !response.ok);
+                } catch (error) {
+                    displayResponse("logoutResponse", { error: error.message }, true);
+                }
+            }
+        </script>
+    </body>
+</html>

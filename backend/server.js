@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(cors({
-    origin: ["http://localhost:3000", "http://localhost:3001"], // Frontend URLs
+    origin: ["http://localhost:3000", "http://localhost:3001", "https://travel-web-t6-5zyh.vercel.app"], // Frontend URLs
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     allowedHeaders: ["Content-Type", "Authorization"]

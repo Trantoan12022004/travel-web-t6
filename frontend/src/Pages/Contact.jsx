@@ -16,7 +16,7 @@ function Contact() {
             />
             <GetInTouch />
             <BookATour />
-            <ContactMap />
+            {/* <ContactMap /> */}
             <FooterFour />
             <ScrollToTop />
         </>

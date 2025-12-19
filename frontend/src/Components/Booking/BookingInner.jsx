@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import useTourStore from "../../Stores/tour";
 import useBookingStore from "../../Stores/booking";
+import useAuthStore from "../../Stores/auth";
 
 const BookingInner = () => {
     const { tourId } = useParams();
     const navigate = useNavigate();
+    const { isAuthenticated } = useAuthStore();
 
     const { currentTour, getTourById, isLoading: tourLoading } = useTourStore();
     const { createBooking, loading: bookingLoading, error } = useBookingStore();
@@ -20,12 +22,15 @@ const BookingInner = () => {
     });
 
     const [agreed, setAgreed] = useState(false);
+    const hasShownToast = useRef(false);
 
     useEffect(() => {
-        const token = localStorage.getItem("accessToken");
-        if (!token) {
-            toast.error("Vui lòng đăng nhập để đặt tour");
-            navigate("/login");
+        if (!isAuthenticated) {
+            if (!hasShownToast.current) {
+                toast.error("Vui lòng đăng nhập để đặt tour");
+                hasShownToast.current = true;
+            }
+            navigate("/");
             return;
         }
 
@@ -38,7 +43,7 @@ const BookingInner = () => {
                 }
             });
         }
-    }, [tourId, getTourById, navigate]);
+    }, [tourId, isAuthenticated, getTourById, navigate]);
 
     // Calculate total price
     const calculateTotalPrice = () => {

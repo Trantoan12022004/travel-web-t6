@@ -14,7 +14,7 @@ function BookATour() {
     return (
         <div
             className="space-extra2-top space-extra2-bottom"
-            style={{ background: "url(/assets/img/bg/video_bg_1.jpg)", backgroundRepeat: "no-repeat", backgroundSize: "cover" }}
+            style={{ background: "url(https://images.unsplash.com/photo-1541417904950-b855846fe074)", backgroundRepeat: "no-repeat", backgroundSize: "cover" }}
         >
             <div className="container">
                 <div className="row flex-row-reverse justify-content-center align-items-center">

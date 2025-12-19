@@ -1,23 +1,28 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import useBookingStore from "../../Stores/booking";
+import useAuthStore from "../../Stores/auth";
 import { BookingStatus } from "../../Types/booking";
 
 const BookingDetail = () => {
     const { id } = useParams();
     const navigate = useNavigate();
+    const { isAuthenticated } = useAuthStore();
     const { currentBooking, loading, error, fetchBookingById, cancelBooking, completeBooking } =
         useBookingStore();
     const [showCancelModal, setShowCancelModal] = useState(false);
     const [cancelReason, setCancelReason] = useState("");
+    const hasShownToast = useRef(false);
 
     useEffect(() => {
-        const token = localStorage.getItem("accessToken");
-        if (!token) {
-            toast.error("Vui lòng đăng nhập");
-            navigate("/login");
+        if (!isAuthenticated) {
+            if (!hasShownToast.current) {
+                toast.error("Vui lòng đăng nhập để xem chi tiết booking");
+                hasShownToast.current = true;
+            }
+            navigate("/");
             return;
         }
 
@@ -25,15 +30,15 @@ const BookingDetail = () => {
             fetchBookingById(id).catch((err) => {
                 console.error("Fetch booking detail error:", err);
                 if (err.response?.status === 401) {
-                    toast.error("Phiên đăng nhập đã hết hạn");
-                    navigate("/login");
+                    // Không hiển thị toast ở đây vì đã hiển thị ở trên
+                    navigate("/");
                 } else if (err.response?.status === 404) {
                     toast.error("Không tìm thấy booking");
                     navigate("/bookings");
                 }
             });
         }
-    }, [id, fetchBookingById, navigate]);
+    }, [id, isAuthenticated, fetchBookingById, navigate]);
 
     const handleCancel = async () => {
         if (!cancelReason.trim()) {

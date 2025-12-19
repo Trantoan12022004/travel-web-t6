@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import useAuthStore from "../../Stores/auth";
 
 function LoginForm({ isOpen, onClose }) {
-    const [activeTab, setActiveTab] = useState("register");
+    const navigate = useNavigate();
+    const [activeTab, setActiveTab] = useState("login");
 
     // Auth store
-    const { login, register, isLoading, error, clearError } = useAuthStore();
+    const { login, register, isLoading, error, clearError, user } = useAuthStore();
 
     // Form data states
     const [loginData, setLoginData] = useState({
@@ -42,11 +44,26 @@ function LoginForm({ isOpen, onClose }) {
 
         try {
             await login(loginData.email, loginData.password);
-            toast.success("Đăng nhập thành công!");
 
-            // Reset form và đóng popup
+            // Reset form
             setLoginData({ email: "", password: "" });
+
+            // Lấy user từ store sau khi login
+            const currentUser = useAuthStore.getState().user;
+
+            // Đóng popup trước
             onClose();
+
+            // Delay một chút để đảm bảo popup đã đóng trước khi navigate
+            setTimeout(() => {
+                if (currentUser?.role === "ADMIN") {
+                    toast.success("Chào mừng Admin!");
+                    navigate("/admin");
+                } else {
+                    toast.success("Đăng nhập thành công!");
+                    navigate("/");
+                }
+            }, 100);
         } catch (err) {
             console.error(err);
             toast.error(err.message || "Đăng nhập thất bại!");
@@ -95,7 +112,10 @@ function LoginForm({ isOpen, onClose }) {
         <div
             id="login-form"
             className={`popup-login-register ${isOpen ? "show" : ""}`}
-            style={{ visibility: isOpen ? "visible" : "hidden" }}
+            style={{
+                visibility: isOpen ? "visible" : "hidden",
+                display: isOpen ? "block" : "none",
+            }}
         >
             <div className="form-inner">
                 <button className="closeButton sideMenuCls" onClick={onClose} aria-label="Close">

@@ -8,14 +8,14 @@ function AboutFour() {
                <div className="col-xl-7">
                   <div className="img-box3">
                      <div className="img1">
-                        <img src="/assets/img/normal/about_3_1.jpg" alt="About" />
+                        <img src="https://images.unsplash.com/photo-1541417904950-b855846fe074" alt="About" />
                      </div>
-                     <div className="img2">
+                     {/* <div className="img2">
                         <img src="/assets/img/normal/about_3_2.jpg" alt="About" />
                      </div>
                      <div className="img3 movingX">
                         <img src="/assets/img/normal/about_3_3.jpg" alt="About" />
-                     </div>
+                     </div> */}
                   </div>
                </div>
                <div className="col-xl-5">

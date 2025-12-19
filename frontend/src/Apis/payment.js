@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://travel-web-t6.onrender.com/api";
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:2004/api";
 
 // Tạo axios instance với config mặc định
 const paymentApi = axios.create({

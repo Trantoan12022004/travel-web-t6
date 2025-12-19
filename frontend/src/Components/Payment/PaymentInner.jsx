@@ -1,26 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import useBookingStore from "../../Stores/booking";
+import useAuthStore from "../../Stores/auth";
 import usePaymentStore from "../../Stores/payment";
 import { PaymentMethod, PaymentMethodText } from "../../Types/payment";
 
 const PaymentInner = () => {
     const { bookingId } = useParams();
     const navigate = useNavigate();
+    const { isAuthenticated } = useAuthStore();
 
     const { currentBooking, fetchBookingById, loading: bookingLoading } = useBookingStore();
     const { createPayment, confirmPayment, loading: paymentLoading, error } = usePaymentStore();
 
     const [selectedMethod, setSelectedMethod] = useState(PaymentMethod.BANK_TRANSFER);
     const [processing, setProcessing] = useState(false);
+    const hasShownToast = useRef(false);
 
     useEffect(() => {
-        const token = localStorage.getItem("accessToken");
-        if (!token) {
-            toast.error("Vui lòng đăng nhập");
-            navigate("/login");
+        if (!isAuthenticated) {
+            if (!hasShownToast.current) {
+                toast.error("Vui lòng đăng nhập để thanh toán");
+                hasShownToast.current = true;
+            }
+            navigate("/");
             return;
         }
 
@@ -28,15 +33,15 @@ const PaymentInner = () => {
             fetchBookingById(bookingId).catch((err) => {
                 console.error("Fetch booking error:", err);
                 if (err.response?.status === 401) {
-                    toast.error("Phiên đăng nhập đã hết hạn");
-                    navigate("/login");
+                    // Không hiển thị toast ở đây vì đã hiển thị ở trên
+                    navigate("/");
                 } else if (err.response?.status === 404) {
                     toast.error("Không tìm thấy booking");
                     navigate("/bookings");
                 }
             });
         }
-    }, [bookingId, fetchBookingById, navigate]);
+    }, [bookingId, isAuthenticated, fetchBookingById, navigate]);
 
     // Kiểm tra booking đã thanh toán chưa
     useEffect(() => {

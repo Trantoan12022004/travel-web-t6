@@ -352,6 +352,20 @@ function HeaderTwo() {
                                                     Booking
                                                 </Link>
                                             </li>
+                                            {isAuthenticated && user?.role === "ADMIN" && (
+                                                <li className="">
+                                                    <Link
+                                                        className={
+                                                            location.pathname === "/admin"
+                                                                ? "active"
+                                                                : ""
+                                                        }
+                                                        to="/admin"
+                                                    >
+                                                        Admin
+                                                    </Link>
+                                                </li>
+                                            )}
                                             <li>
                                                 <Link to="/contact">Contact us</Link>
                                             </li>

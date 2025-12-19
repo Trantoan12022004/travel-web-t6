@@ -1,27 +1,32 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import useBookingStore from "../../Stores/booking";
+import useAuthStore from "../../Stores/auth";
 import { BookingStatus } from "../../Types/booking";
 
 const BookingsInner = () => {
     const navigate = useNavigate();
+    const { isAuthenticated } = useAuthStore();
     const { bookings, loading, error, fetchMyBookings, cancelBooking, pagination } =
         useBookingStore();
     const [currentPage, setCurrentPage] = useState(1);
     const [filterStatus, setFilterStatus] = useState("all");
+    const hasShownToast = useRef(false);
 
     useEffect(() => {
-        const token = localStorage.getItem("accessToken");
-        if (!token) {
-            toast.error("Vui lòng đăng nhập");
-            navigate("/login");
+        if (!isAuthenticated) {
+            if (!hasShownToast.current) {
+                toast.error("Vui lòng đăng nhập để xem danh sách booking");
+                hasShownToast.current = true;
+            }
+            navigate("/");
             return;
         }
 
         loadBookings();
-    }, [currentPage, filterStatus]);
+    }, [currentPage, filterStatus, isAuthenticated]);
 
     const loadBookings = () => {
         const params = {
@@ -35,9 +40,9 @@ const BookingsInner = () => {
 
         fetchMyBookings(params).catch((err) => {
             console.error("Fetch bookings error:", err);
+            // Không hiển thị toast ở đây nữa vì đã hiển thị ở trên
             if (err.response?.status === 401) {
-                toast.error("Phiên đăng nhập đã hết hạn");
-                navigate("/login");
+                navigate("/");
             }
         });
     };

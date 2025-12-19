@@ -19,12 +19,12 @@ function About() {
                 title="About Tourm"
             />
             <AboutFour />
-            <OfferTwo />
+            {/* <OfferTwo /> */}
             <ElementSection />
-            <TourGuideTwo />
-            <TestimonialOne />
-            <BrandOne/>
-            <GalleryFive />
+            {/* <TourGuideTwo /> */}
+            {/* <TestimonialOne /> */}
+            {/* <BrandOne/> */}
+            {/* <GalleryFive /> */}
             <FooterFour />
             <ScrollToTop />
         </>

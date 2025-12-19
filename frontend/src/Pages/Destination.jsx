@@ -10,7 +10,7 @@ function Destination() {
         <>
             <HeaderTwo />
             <Breadcrumb
-                title="Destination"
+                title="Điểm đến"
             />
             <DestinationInner />
             <FooterFour />

@@ -63,32 +63,32 @@ function HeaderTwo() {
                             <div className="col-auto d-none d-md-block">
                                 <div className="header-links">
                                     <ul>
-                                        <li className="d-none d-xl-inline-block">
+                                        {/* <li className="d-none d-xl-inline-block">
                                             <i className="fa-sharp fa-regular  fa-location-dot" />
                                             <span>45 New Eskaton Road, Austria</span>
                                         </li>
                                         <li className="d-none d-xl-inline-block">
                                             <i className="fa-regular fa-clock" />
                                             <span>Sun to Friday: 8.00 am - 7.00 pm</span>
-                                        </li>
+                                        </li> */}
                                     </ul>
                                 </div>
                             </div>
                             <div className="col-auto">
                                 <div className="header-right">
-                                    <div className="currency-menu">
+                                    {/* <div className="currency-menu">
                                         <NiceSelect
                                             options={languageOptions}
                                             defaultValue="Language"
                                         />
-                                    </div>
+                                    </div> */}
                                     <div className="header-links">
                                         <ul>
-                                            <li className="d-none d-md-inline-block">
+                                            {/* <li className="d-none d-md-inline-block">
                                                 <Link to="/faq">FAQ</Link>
-                                            </li>
+                                            </li> */}
                                             <li className="d-none d-md-inline-block">
-                                                <Link to="/contact">Support</Link>
+                                                <Link to="/contact">Hỗ trợ</Link>
                                             </li>
                                             <li>
                                                 {isAuthenticated ? (
@@ -108,7 +108,7 @@ function HeaderTwo() {
                                                         type="button"
                                                         onClick={() => setIsLoginFormOpen(true)}
                                                     >
-                                                        Sign In / Register
+                                                        Đăng nhập / Đăng ký
                                                         <i className="fa-regular fa-user" />
                                                     </button>
                                                 )}
@@ -145,7 +145,7 @@ function HeaderTwo() {
                                                     }
                                                     to="/"
                                                 >
-                                                    Home
+                                                    Trang chủ
                                                 </Link>
                                                 {/* <ul className="mega-menu mega-menu-content">
                                                     <li>
@@ -261,7 +261,7 @@ function HeaderTwo() {
                                                     }
                                                     to="/about"
                                                 >
-                                                    About Us
+                                                    Về chúng tôi
                                                 </Link>
                                             </li>
                                             <li className="">
@@ -273,7 +273,7 @@ function HeaderTwo() {
                                                     }
                                                     to="/destination"
                                                 >
-                                                    Destination
+                                                    Điểm đến
                                                 </Link>
                                             </li>
                                             {/* <li className="">
@@ -349,7 +349,7 @@ function HeaderTwo() {
                                                     }
                                                     to="/bookings"
                                                 >
-                                                    Booking
+                                                    Đặt chỗ
                                                 </Link>
                                             </li>
                                             {isAuthenticated && user?.role === "ADMIN" && (
@@ -367,7 +367,7 @@ function HeaderTwo() {
                                                 </li>
                                             )}
                                             <li>
-                                                <Link to="/contact">Contact us</Link>
+                                                <Link to="/contact">Liên hệ</Link>
                                             </li>
                                         </ul>
                                     </nav>
@@ -382,7 +382,7 @@ function HeaderTwo() {
                                 <div className="col-auto d-none d-xl-block">
                                     <div className="header-button">
                                         <Link to="/contact" className="th-btn style3 th-icon">
-                                            Book Now
+                                            Đặt ngay
                                         </Link>
                                     </div>
                                 </div>

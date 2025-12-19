@@ -10,6 +10,19 @@ function LoginForm({ isOpen, onClose }) {
     // Auth store
     const { login, register, isLoading, error, clearError, user } = useAuthStore();
 
+    // Fix overlay issue - remove body class when popup closes
+    React.useEffect(() => {
+        if (isOpen) {
+            document.body.classList.add("popup-visible");
+        } else {
+            document.body.classList.remove("popup-visible");
+        }
+
+        return () => {
+            document.body.classList.remove("popup-visible");
+        };
+    }, [isOpen]);
+
     // Form data states
     const [loginData, setLoginData] = useState({
         email: "",
@@ -132,7 +145,7 @@ function LoginForm({ isOpen, onClose }) {
                             role="tab"
                             aria-selected={activeTab === "login"}
                         >
-                            Login
+                            Đăng Nhập
                         </button>
                     </li>
                     <li className="nav-item" role="presentation">
@@ -143,7 +156,7 @@ function LoginForm({ isOpen, onClose }) {
                             role="tab"
                             aria-selected={activeTab === "register"}
                         >
-                            Register
+                            Đăng Ký
                         </button>
                     </li>
                 </ul>
@@ -153,7 +166,7 @@ function LoginForm({ isOpen, onClose }) {
                     {/* Login Tab */}
                     {activeTab === "login" && (
                         <div className="tab-pane fade active show">
-                            <h3 className="box-title mb-30">Sign in to your account</h3>
+                            <h3 className="box-title mb-30">Đăng nhập vào tài khoản của bạn</h3>
                             <div className="th-login-form">
                                 <form
                                     className="login-form ajax-contact"
@@ -161,7 +174,7 @@ function LoginForm({ isOpen, onClose }) {
                                 >
                                     <div className="row">
                                         <div className="form-group col-12">
-                                            <label>Username or email</label>
+                                            <label>Tên đăng nhập hoặc email</label>
                                             <input
                                                 type="text"
                                                 className="form-control"
@@ -172,7 +185,7 @@ function LoginForm({ isOpen, onClose }) {
                                             />
                                         </div>
                                         <div className="form-group col-12">
-                                            <label>Password</label>
+                                            <label>Mật khẩu</label>
                                             <input
                                                 type="password"
                                                 className="form-control"
@@ -188,12 +201,12 @@ function LoginForm({ isOpen, onClose }) {
                                                 className="th-btn btn-fw th-radius2"
                                                 disabled={isLoading}
                                             >
-                                                {isLoading ? "Đang xử lý..." : "Send Message"}
+                                                {isLoading ? "Đang xử lý..." : "Đăng nhập"}
                                             </button>
                                         </div>
                                     </div>
                                     <div id="forgot_url">
-                                        <a href="#">Forgot password?</a>
+                                        <a href="#">Quên mật khẩu?</a>
                                     </div>
                                 </form>
                             </div>
@@ -203,14 +216,14 @@ function LoginForm({ isOpen, onClose }) {
                     {/* Register Tab */}
                     {activeTab === "register" && (
                         <div className="tab-pane fade active show">
-                            <h3 className="th-form-title mb-30">Create a new account</h3>
+                            <h3 className="th-form-title mb-30">Tạo tài khoản mới</h3>
                             <form
                                 className="login-form ajax-contact"
                                 onSubmit={handleRegisterSubmit}
                             >
                                 <div className="row">
                                     <div className="form-group col-12">
-                                        <label>Username*</label>
+                                        <label>Tên đăng nhập*</label>
                                         <input
                                             type="text"
                                             className="form-control"
@@ -221,7 +234,7 @@ function LoginForm({ isOpen, onClose }) {
                                         />
                                     </div>
                                     <div className="form-group col-12">
-                                        <label>First name*</label>
+                                        <label>Họ*</label>
                                         <input
                                             type="text"
                                             className="form-control"
@@ -232,7 +245,7 @@ function LoginForm({ isOpen, onClose }) {
                                         />
                                     </div>
                                     <div className="form-group col-12">
-                                        <label>Last name*</label>
+                                        <label>Tên*</label>
                                         <input
                                             type="text"
                                             className="form-control"
@@ -243,7 +256,7 @@ function LoginForm({ isOpen, onClose }) {
                                         />
                                     </div>
                                     <div className="form-group col-12">
-                                        <label>Your email*</label>
+                                        <label>Email của bạn*</label>
                                         <input
                                             type="email"
                                             className="form-control"
@@ -254,7 +267,7 @@ function LoginForm({ isOpen, onClose }) {
                                         />
                                     </div>
                                     <div className="form-group col-12">
-                                        <label>Password*</label>
+                                        <label>Mật khẩu*</label>
                                         <input
                                             type="password"
                                             className="form-control"
@@ -266,7 +279,7 @@ function LoginForm({ isOpen, onClose }) {
                                         />
                                     </div>
                                     <div className="form-group col-12">
-                                        <label>Confirm Password*</label>
+                                        <label>Xác nhận mật khẩu*</label>
                                         <input
                                             type="password"
                                             className="form-control"
@@ -286,7 +299,7 @@ function LoginForm({ isOpen, onClose }) {
                                             className="th-btn btn-fw th-radius2"
                                             disabled={isLoading}
                                         >
-                                            {isLoading ? "Đang xử lý..." : "Sign up"}
+                                            {isLoading ? "Đang xử lý..." : "Đăng ký"}
                                         </button>
                                     </div>
                                 </div>

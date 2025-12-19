@@ -4,7 +4,7 @@ import Breadcrumb from '../Components/BreadCrumb/Breadcrumb'
 import GetInTouch from '../Components/Contact/GetInTouch'
 import BookATour from '../Components/Contact/BookATour'
 import ContactMap from '../Components/Contact/ContactMap'
-import FooterFour from '../Components/Footer/FooterFour'
+import FooterTwo from '../Components/Footer/FooterTwo'
 import ScrollToTop from '../Components/ScrollToTop'
 
 function Contact() {
@@ -12,12 +12,12 @@ function Contact() {
         <>
             <HeaderTwo />
             <Breadcrumb
-                title='Contact Us'
+                title='Liên hệ'
             />
             <GetInTouch />
-            <BookATour />
+            {/* <BookATour /> */}
             {/* <ContactMap /> */}
-            <FooterFour />
+            <FooterTwo />
             <ScrollToTop />
         </>
     )

@@ -48,7 +48,7 @@ function DestinationDetailsMain() {
                 <div className="container">
                     <div className="text-center py-5">
                         <div className="spinner-border" role="status">
-                            <span className="visually-hidden">Loading...</span>
+                            <span className="visually-hidden">Đang tải...</span>
                         </div>
                     </div>
                 </div>
@@ -60,7 +60,7 @@ function DestinationDetailsMain() {
         return (
             <section className="space">
                 <div className="container">
-                    <div className="alert alert-danger">{error || "Tour not found!"}</div>
+                    <div className="alert alert-danger">{error || "Không tìm thấy tour!"}</div>
                 </div>
             </section>
         );
@@ -91,25 +91,25 @@ function DestinationDetailsMain() {
                                 <h2 className="box-title">{currentTour.title}</h2>
                                 <p className="blog-text mb-30">{currentTour.description}</p>
 
-                                <h2 className="box-title">Basic Information</h2>
+                                <h2 className="box-title">Thông Tin Cơ Bản</h2>
                                 <div className="destination-checklist">
                                     <div className="checklist style2">
                                         <ul>
-                                            <li>Destination</li>
-                                            <li>Duration</li>
-                                            <li>Category</li>
-                                            <li>Rating</li>
-                                            <li>Reviews</li>
-                                            <li>Price per Person</li>
+                                            <li>Điểm đến</li>
+                                            <li>Thời gian</li>
+                                            <li>Danh mục</li>
+                                            <li>Đánh giá</li>
+                                            <li>Nhận xét</li>
+                                            <li>Giá mỗi người</li>
                                         </ul>
                                     </div>
                                     <div className="checklist style2">
                                         <ul>
                                             <li>{currentTour.location}</li>
-                                            <li>{currentTour.durationDays} Days</li>
+                                            <li>{currentTour.durationDays} Ngày</li>
                                             <li>{currentTour.category?.name || "N/A"}</li>
                                             <li>{currentTour.ratingAvg} / 5.0</li>
-                                            <li>{currentTour.ratingCount} Reviews</li>
+                                            <li>{currentTour.ratingCount} Nhận xét</li>
                                             <li>{formatVND(currentTour.price)}</li>
                                         </ul>
                                     </div>
@@ -118,7 +118,7 @@ function DestinationDetailsMain() {
                                 {/* Basic Info JSON */}
                                 {currentTour.basicInfo && (
                                     <div className="mt-40">
-                                        <h3 className="box-title">Tour Details</h3>
+                                        <h3 className="box-title">Chi Tiết Tour</h3>
                                         <div className="checklist">
                                             <ul>
                                                 {Object.entries(currentTour.basicInfo).map(
@@ -139,7 +139,7 @@ function DestinationDetailsMain() {
                                         <div className="checklist">
                                             {currentTour.highlightInfo?.highlights?.length > 0 && (
                                                 <div className="mt-40">
-                                                    <h2 className="box-title">Highlights</h2>
+                                                    <h2 className="box-title">Điểm Nổi Bật</h2>
 
                                                     <div className="checklist">
                                                         <ul>
@@ -159,14 +159,14 @@ function DestinationDetailsMain() {
                                 {/* Schedules */}
                                 {currentTour.schedules && currentTour.schedules.length > 0 && (
                                     <div className="mt-40">
-                                        <h2 className="box-title">Tour Schedule</h2>
+                                        <h2 className="box-title">Lịch Trình Tour</h2>
 
                                         <div className="checklist">
                                             <ul>
                                                 {currentTour.schedules.map((schedule) => (
                                                     <li key={schedule.scheduleId}>
                                                         <strong>
-                                                            Day {schedule.dayNumber}:{" "}
+                                                            Ngày {schedule.dayNumber}:{" "}
                                                             {schedule.title}
                                                         </strong>
                                                         {/* 
@@ -195,7 +195,7 @@ function DestinationDetailsMain() {
                                 {/* Gallery */}
                                 {currentTour.images && currentTour.images.length > 0 && (
                                     <div className="destination-gallery-wrapper">
-                                        <h3 className="page-title mt-30 mb-30">Tour Gallery</h3>
+                                        <h3 className="page-title mt-30 mb-30">Thư Viện Ảnh</h3>
                                         <div className="row gy-4 gallery-row filter-active">
                                             {currentTour.images.slice(0, 4).map((image) => (
                                                 <div
@@ -232,7 +232,7 @@ function DestinationDetailsMain() {
                                 {currentTour.reviews && currentTour.reviews.length > 0 && (
                                     <div className="th-comments-wrap style2">
                                         <h2 className="blog-inner-title h4">
-                                            Reviews ({currentTour.reviews.length})
+                                            Đánh Giá ({currentTour.reviews.length})
                                         </h2>
                                         <ul className="comment-list">
                                             {currentTour.reviews.map((review) => (
@@ -284,14 +284,16 @@ function DestinationDetailsMain() {
                                 {/* Comment Form */}
                                 <div className="th-comment-form">
                                     <div className="row">
-                                        <h3 className="blog-inner-title h4 mb-2">Leave a Review</h3>
+                                        <h3 className="blog-inner-title h4 mb-2">
+                                            Để Lại Đánh Giá
+                                        </h3>
                                         <p className="mb-25">
-                                            Your email address will not be published.
+                                            Email của bạn sẽ không được công khai.
                                         </p>
                                         <div className="col-md-6 form-group">
                                             <input
                                                 type="text"
-                                                placeholder="Full Name*"
+                                                placeholder="Họ và Tên*"
                                                 className="form-control"
                                             />
                                             <i className="far fa-user" />
@@ -299,31 +301,31 @@ function DestinationDetailsMain() {
                                         <div className="col-md-6 form-group">
                                             <input
                                                 type="email"
-                                                placeholder="Your Email*"
+                                                placeholder="Email của bạn*"
                                                 className="form-control"
                                             />
                                             <i className="far fa-envelope" />
                                         </div>
                                         <div className="col-12 form-group">
                                             <select className="form-control">
-                                                <option value="">Select Rating</option>
-                                                <option value="5">5 Stars</option>
-                                                <option value="4">4 Stars</option>
-                                                <option value="3">3 Stars</option>
-                                                <option value="2">2 Stars</option>
-                                                <option value="1">1 Star</option>
+                                                <option value="">Chọn đánh giá</option>
+                                                <option value="5">5 Sao</option>
+                                                <option value="4">4 Sao</option>
+                                                <option value="3">3 Sao</option>
+                                                <option value="2">2 Sao</option>
+                                                <option value="1">1 Sao</option>
                                             </select>
                                         </div>
                                         <div className="col-12 form-group">
                                             <textarea
-                                                placeholder="Your Review*"
+                                                placeholder="Đánh giá của bạn*"
                                                 className="form-control"
                                             />
                                             <i className="far fa-pencil" />
                                         </div>
                                         <div className="col-12 form-group mb-0">
                                             <button className="th-btn">
-                                                Submit Review
+                                                Gửi Đánh Giá
                                                 <img src="/assets/img/icon/plane2.svg" alt="" />
                                             </button>
                                         </div>
@@ -339,7 +341,7 @@ function DestinationDetailsMain() {
                             {/* Related Tours */}
                             {relatedTours.length > 0 && (
                                 <div className="widget">
-                                    <h3 className="widget_title">Related Tours</h3>
+                                    <h3 className="widget_title">Tour Liên Quan</h3>
                                     <div className="recent-post-wrap">
                                         {relatedTours.map((tour) => (
                                             <div key={tour.tourId} className="recent-post">
@@ -388,19 +390,19 @@ function DestinationDetailsMain() {
                                 <div className="offer-banner">
                                     <div className="offer">
                                         <h6 className="box-title">
-                                            Need Help? We Are Here To Help You
+                                            Cần Hỗ Trợ? Chúng Tôi Luôn Sẵn Sàng
                                         </h6>
                                         <div className="banner-logo">
                                             <img src="/assets/img/logo2.svg" alt="Tourm" />
                                         </div>
                                         <div className="offer">
-                                            <h6 className="offer-title">You Get Online support</h6>
-                                            <Link className="offter-num" to="tel:+256214203215">
-                                                +256 214 203 215
+                                            <h6 className="offer-title">Hỗ Trợ Trực Tuyến 24/7</h6>
+                                            <Link className="offter-num" to="tel:+84909123456">
+                                                +84 909 123 456
                                             </Link>
                                         </div>
                                         <Link to="/contact" className="th-btn style2 th-icon">
-                                            Read More
+                                            Xem Thêm
                                         </Link>
                                     </div>
                                 </div>

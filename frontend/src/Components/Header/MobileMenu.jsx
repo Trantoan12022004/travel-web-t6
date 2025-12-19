@@ -52,28 +52,28 @@ function MobileMenu({ isOpen, onClose }) {
                         {/* Home */}
                         <li>
                             <Link to="/" onClick={onClose}>
-                                Home
+                                Trang chủ
                             </Link>
                         </li>
 
                         {/* About Us */}
                         <li>
                             <Link to="/about" onClick={onClose}>
-                                About Us
+                                Về chúng tôi
                             </Link>
                         </li>
 
                         {/* Destination */}
                         <li>
                             <Link to="/destination" onClick={onClose}>
-                                Destination
+                                Điểm đến
                             </Link>
                         </li>
 
                         {/* Booking */}
                         <li>
                             <Link to="/bookings" onClick={onClose}>
-                                Booking
+                                Đặt chỗ
                             </Link>
                         </li>
 
@@ -89,7 +89,7 @@ function MobileMenu({ isOpen, onClose }) {
                         {/* Contact */}
                         <li>
                             <Link to="/contact" onClick={onClose}>
-                                Contact Us
+                                Liên hệ
                             </Link>
                         </li>
                     </ul>

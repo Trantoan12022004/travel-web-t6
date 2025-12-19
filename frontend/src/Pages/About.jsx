@@ -8,7 +8,7 @@ import TourGuideTwo from '../Components/Guide/TourGuideTwo'
 import TestimonialOne from '../Components/Testimonials/TestimonialOne'
 import BrandOne from '../Components/Brand/BrandOne'
 import GalleryFive from '../Components/Gallery/GalleryFive'
-import FooterFour from '../Components/Footer/FooterFour'
+import FooterTwo from '../Components/Footer/FooterTwo'
 import ScrollToTop from '../Components/ScrollToTop'
 
 function About() {
@@ -16,7 +16,7 @@ function About() {
         <>
             <HeaderTwo />
             <Breadcrumb
-                title="About Tourm"
+                title="Về Chúng Tôi"
             />
             <AboutFour />
             {/* <OfferTwo /> */}
@@ -25,7 +25,7 @@ function About() {
             {/* <TestimonialOne /> */}
             {/* <BrandOne/> */}
             {/* <GalleryFive /> */}
-            <FooterFour />
+            <FooterTwo />
             <ScrollToTop />
         </>
     )

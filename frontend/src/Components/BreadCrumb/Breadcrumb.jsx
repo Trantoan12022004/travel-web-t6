@@ -13,7 +13,7 @@ function Breadcrumb({ title, description, bgImage }) {
                         <h1 className="breadcumb-title">{title}</h1>
                         <ul className="breadcumb-menu">
                             <li>
-                                <Link to="/">Home</Link>
+                                <Link to="/">Trang chủ</Link>
                             </li>
                             <li>{title}</li>
                         </ul>

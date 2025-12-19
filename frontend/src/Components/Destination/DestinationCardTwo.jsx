@@ -46,19 +46,19 @@ function DestinationCardTwo(props) {
                     </div>
                     <Link to={`/destination/${destinationID}`} className="woocommerce-review-link">
                         (<span className="count">4.8</span>
-                        Rating)
+                        Đánh giá)
                     </Link>
                 </div>
                 <h4 className="tour-box_price">
                     <span className="currency">{formatVND(destinationPrice)}</span>
-                    /Person
+                    /Người
                 </h4>
                 <div className="tour-action">
                     <span>
-                        <i className="fa-light fa-clock" />7 Days
+                        <i className="fa-light fa-clock" />7 Ngày
                     </span>
                     <Link to={`/booking/${destinationID}`} className="th-btn style4 th-icon">
-                        Book Now
+                        Đặt Ngay
                     </Link>
                 </div>
             </div>

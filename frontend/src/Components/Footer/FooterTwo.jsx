@@ -1,35 +1,11 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from "react";
+import { Link } from "react-router-dom";
 
 function FooterTwo() {
     return (
         <footer className="footer-wrapper bg-title footer-layout2">
             <div className="widget-area">
                 <div className="container">
-                    <div className="newsletter-area">
-                        <div className="newsletter-top">
-                            <div className="row gy-4 align-items-center">
-                                <div className="col-lg-5">
-                                    <h2 className="newsletter-title text-white text-capitalize mb-0">
-                                        get updated the latest newsletter
-                                    </h2>
-                                </div>
-                                <div className="col-lg-7">
-                                    <form className="newsletter-form style2">
-                                        <input
-                                            className="form-control "
-                                            type="email"
-                                            placeholder="Enter Email"
-                                            required=""
-                                        />
-                                        <button type="submit" className="th-btn style1">
-                                            Subscribe Now <img src="/assets/img/icon/plane2.svg" alt="" />
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <div className="row justify-content-between">
                         <div className="col-md-6 col-xl-3">
                             <div className="widget footer-widget">
@@ -40,8 +16,9 @@ function FooterTwo() {
                                         </Link>
                                     </div>
                                     <p className="about-text">
-                                        Rapidiously myocardinate cross-platform intellectual capital
-                                        model. Appropriately create interactive infrastructures
+                                        Chúng tôi mang đến những trải nghiệm du lịch tuyệt vời nhất
+                                        tại Việt Nam với dịch vụ chuyên nghiệp, giá cả hợp lý và cam
+                                        kết chất lượng hàng đầu.
                                     </p>
                                     <div className="th-social">
                                         <Link to="https://www.facebook.com/">
@@ -63,33 +40,10 @@ function FooterTwo() {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-md-6 col-xl-auto">
-                            <div className="widget widget_nav_menu footer-widget">
-                                <h3 className="widget_title">Quick Links</h3>
-                                <div className="menu-all-pages-container">
-                                    <ul className="menu">
-                                        <li>
-                                            <Link to="/">Home</Link>
-                                        </li>
-                                        <li>
-                                            <Link to="/about">About us</Link>
-                                        </li>
-                                        <li>
-                                            <Link to="/service">Our Service</Link>
-                                        </li>
-                                        <li>
-                                            <Link to="/contact">Terms of Service</Link>
-                                        </li>
-                                        <li>
-                                            <Link to="/contact">Tour Booking Now</Link>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+                        <div className="col-md-6 col-xl-auto"></div>
                         <div className="col-md-6 col-xl-auto">
                             <div className="widget footer-widget">
-                                <h3 className="widget_title">Get In Touch</h3>
+                                <h3 className="widget_title">Liên Hệ</h3>
                                 <div className="th-widget-contact">
                                     <div className="info-box_text">
                                         <div className="icon">
@@ -97,13 +51,19 @@ function FooterTwo() {
                                         </div>
                                         <div className="details">
                                             <p>
-                                                <Link to="/tel:+01234567890" className="info-box_link">
-                                                    +01 234 567 890
+                                                <Link
+                                                    to="/tel:+84287654321"
+                                                    className="info-box_link"
+                                                >
+                                                    +84 28 7654 321
                                                 </Link>
                                             </p>
                                             <p>
-                                                <Link to="/tel:+09876543210" className="info-box_link">
-                                                    +09 876 543 210
+                                                <Link
+                                                    to="/tel:+84901234567"
+                                                    className="info-box_link"
+                                                >
+                                                    +84 90 123 4567
                                                 </Link>
                                             </p>
                                         </div>
@@ -115,28 +75,31 @@ function FooterTwo() {
                                         <div className="details">
                                             <p>
                                                 <Link
-                                                    to="/mailto:mailinfo00@tourm.com"
+                                                    to="/mailto:info@dulichvietnam.vn"
                                                     className="info-box_link"
                                                 >
-                                                    mailinfo00@tourm.com
+                                                    info@dulichvietnam.vn
                                                 </Link>
                                             </p>
                                             <p>
                                                 <Link
-                                                    to="/mailto:support24@tourm.com"
+                                                    to="/mailto:hotro@dulichvietnam.vn"
                                                     className="info-box_link"
                                                 >
-                                                    support24@tourm.com
+                                                    hotro@dulichvietnam.vn
                                                 </Link>
                                             </p>
                                         </div>
                                     </div>
                                     <div className="info-box_text">
                                         <div className="icon">
-                                            <img src="/assets/img/icon/location-dot.svg" alt="img" />
+                                            <img
+                                                src="/assets/img/icon/location-dot.svg"
+                                                alt="img"
+                                            />
                                         </div>
                                         <div className="details">
-                                            <p>789 Inner Lane, Holy park, California, USA</p>
+                                            <p>123 Nguyễn Huệ, Quận 1, TP. Hồ Chí Minh, Việt Nam</p>
                                         </div>
                                     </div>
                                 </div>
@@ -144,12 +107,12 @@ function FooterTwo() {
                         </div>
                         <div className="col-md-6 col-xl-auto">
                             <div className="widget footer-widget">
-                                <h3 className="widget_title">Instagram Post</h3>
+                                <h3 className="widget_title">Bài Viết Instagram</h3>
                                 <div className="sidebar-gallery">
                                     <div className="gallery-thumb">
                                         <img
-                                            src="/assets/img/widget/gallery_1_1.jpg"
-                                            alt="Gallery"
+                                            src="https://images.unsplash.com/photo-1528127269322-539801943592?w=400&q=80"
+                                            alt="Hạ Long Bay"
                                         />
                                         <Link
                                             target="_blank"
@@ -161,8 +124,8 @@ function FooterTwo() {
                                     </div>
                                     <div className="gallery-thumb">
                                         <img
-                                            src="/assets/img/widget/gallery_1_2.jpg"
-                                            alt="Gallery"
+                                            src="https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=400&q=80"
+                                            alt="Sapa"
                                         />
                                         <Link
                                             target="_blank"
@@ -174,8 +137,8 @@ function FooterTwo() {
                                     </div>
                                     <div className="gallery-thumb">
                                         <img
-                                            src="/assets/img/widget/gallery_1_3.jpg"
-                                            alt="Gallery"
+                                            src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=400&q=80"
+                                            alt="Phú Quốc"
                                         />
                                         <Link
                                             target="_blank"
@@ -187,8 +150,8 @@ function FooterTwo() {
                                     </div>
                                     <div className="gallery-thumb">
                                         <img
-                                            src="/assets/img/widget/gallery_1_4.jpg"
-                                            alt="Gallery"
+                                            src="https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=400&q=80"
+                                            alt="Hội An"
                                         />
                                         <Link
                                             target="_blank"
@@ -200,8 +163,8 @@ function FooterTwo() {
                                     </div>
                                     <div className="gallery-thumb">
                                         <img
-                                            src="/assets/img/widget/gallery_1_5.jpg"
-                                            alt="Gallery"
+                                            src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80"
+                                            alt="Đà Lạt"
                                         />
                                         <Link
                                             target="_blank"
@@ -213,8 +176,8 @@ function FooterTwo() {
                                     </div>
                                     <div className="gallery-thumb">
                                         <img
-                                            src="/assets/img/widget/gallery_1_6.jpg"
-                                            alt="Gallery"
+                                            src="https://images.unsplash.com/photo-1540541338287-41700207dee6?w=400&q=80"
+                                            alt="Nha Trang"
                                         />
                                         <Link
                                             target="_blank"
@@ -235,13 +198,13 @@ function FooterTwo() {
                     <div className="row justify-content-between align-items-center">
                         <div className="col-md-6">
                             <p className="copyright-text">
-                                Copyright 2025 <Link to="/">Tourm</Link>. All Rights
-                                Reserved.
+                                Bản quyền 2025 <Link to="/">Du Lịch Việt Nam</Link>. Đã đăng ký bản
+                                quyền.
                             </p>
                         </div>
                         <div className="col-md-6 text-end d-none d-md-block">
                             <div className="footer-card">
-                                <span className="title">We Accept</span>
+                                <span className="title">Chúng Tôi Chấp Nhận</span>
                                 <img src="/assets/img/shape/cards.png" alt="" />
                             </div>
                         </div>
@@ -258,8 +221,7 @@ function FooterTwo() {
                 <img src="/assets/img/shape/shape_8.png" alt="shape" />
             </div>
         </footer>
-
-    )
+    );
 }
 
-export default FooterTwo
+export default FooterTwo;

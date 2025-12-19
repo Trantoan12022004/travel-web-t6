@@ -8,77 +8,76 @@ import { Link } from "react-router-dom";
 const destinations = [
     {
         id: 1,
-        title: "Greece Tour Package",
-        image: "/assets/img/tour/tour_2_1.jpg",
-        rating: 4.8,
-        price: 980,
-        duration: "7 Days",
+        title: "Tour Vịnh Hạ Long - Di Sản Thế Giới",
+        image: "https://images.unsplash.com/photo-1528127269322-539801943592?w=800&q=80",
+        rating: 4.9,
+        price: 3200000,
+        duration: "2 Ngày 1 Đêm",
         link: "/tour-details",
     },
     {
         id: 2,
-        title: "Italy Tour Package",
-        image: "/assets/img/tour/tour_2_2.jpg",
+        title: "Tour Sapa - Chinh Phục Fansipan",
+        image: "https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=800&q=80",
         rating: 4.8,
-        price: 980,
-        duration: "7 Days",
+        price: 4500000,
+        duration: "3 Ngày 2 Đêm",
         link: "/tour-details",
     },
     {
         id: 3,
-        title: "Dubai Tour Package",
-        image: "/assets/img/tour/tour_2_3.jpg",
-        rating: 4.8,
-        price: 980,
-        duration: "7 Days",
+        title: "Tour Phú Quốc - Đảo Ngọc Thiên Đường",
+        image: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&q=80",
+        rating: 4.9,
+        price: 5800000,
+        duration: "4 Ngày 3 Đêm",
         link: "/tour-details",
     },
     {
         id: 4,
-        title: "Switzerland",
-        image: "/assets/img/tour/tour_2_4.jpg",
-        rating: 4.8,
-        price: 980,
-        duration: "7 Days",
+        title: "Tour Đà Nẵng - Hội An - Huế",
+        image: "https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=800&q=80",
+        rating: 4.7,
+        price: 4200000,
+        duration: "4 Ngày 3 Đêm",
         link: "/tour-details",
     },
     {
         id: 5,
-        title: "Greece Tour Package",
-        image: "/assets/img/tour/tour_2_1.jpg",
+        title: "Tour Nha Trang - Vinpearl Land",
+        image: "https://images.unsplash.com/photo-1540541338287-41700207dee6?w=800&q=80",
         rating: 4.8,
-        price: 980,
-        duration: "7 Days",
+        price: 3800000,
+        duration: "3 Ngày 2 Đêm",
         link: "/tour-details",
     },
     {
         id: 6,
-        title: "Italy Tour Package",
-        image: "/assets/img/tour/tour_2_2.jpg",
-        rating: 4.8,
-        price: 980,
-        duration: "7 Days",
+        title: "Tour Đà Lạt - Thành Phố Ngàn Hoa",
+        image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
+        rating: 4.7,
+        price: 3500000,
+        duration: "3 Ngày 2 Đêm",
         link: "/tour-details",
     },
     {
         id: 7,
-        title: "Dubai Tour Package",
-        image: "/assets/img/tour/tour_2_3.jpg",
-        rating: 4.8,
-        price: 980,
-        duration: "7 Days",
+        title: "Tour Ninh Bình - Tràng An - Tam Cốc",
+        image: "https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=800&q=80",
+        rating: 4.6,
+        price: 2800000,
+        duration: "2 Ngày 1 Đêm",
         link: "/tour-details",
     },
     {
         id: 8,
-        title: "Switzerland",
-        image: "/assets/img/tour/tour_2_4.jpg",
-        rating: 4.8,
-        price: 980,
-        duration: "7 Days",
+        title: "Tour Miền Tây - Chợ Nổi Cái Răng",
+        image: "https://images.unsplash.com/photo-1559339352-11d035aa65de?w=800&q=80",
+        rating: 4.7,
+        price: 2500000,
+        duration: "2 Ngày 1 Đêm",
         link: "/tour-details",
     },
-
 ];
 const sectionStyle = {
     position: "relative",
@@ -88,7 +87,7 @@ const sectionStyle = {
     zIndex: 3,
     backgroundRepeat: "no-repeat",
     marginBottom: -348,
-  };
+};
 
 function PopularDestination() {
     return (
@@ -99,11 +98,11 @@ function PopularDestination() {
         >
             <div className="container">
                 <div className="title-area mb-15 text-center">
-                    <span className="sub-title">Best Recommended Places</span>
-                    <h2 className="sec-title">Popular Destination We Offer For All</h2>
+                    <h2 className="sec-title">Điểm Đến Phổ Biến Dành Cho Mọi Người</h2>
                     <p className="tour-text">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua.
+                        Khám phá những điểm đến hấp dẫn nhất tại Việt Nam với các gói tour được
+                        thiết kế đặc biệt, mang đến trải nghiệm du lịch tuyệt vời với giá cả hợp lý
+                        và dịch vụ chuyên nghiệp.
                     </p>
                 </div>
 
@@ -133,25 +132,41 @@ function PopularDestination() {
                                             <Link to={destination.link}>{destination.title}</Link>
                                         </h3>
                                         <div className="tour-rating">
-                                            <div className="star-rating" role="img" aria-label={`Rated ${destination.rating} out of 5`}>
+                                            <div
+                                                className="star-rating"
+                                                role="img"
+                                                aria-label={`Rated ${destination.rating} out of 5`}
+                                            >
                                                 <span style={{ width: "100%" }}>
-                                                    Rated <strong className="rating">5.00</strong> out of 5 based on{" "}
-                                                    <span className="rating">{destination.rating}</span> ({destination.rating} Rating)
+                                                    Rated <strong className="rating">5.00</strong>{" "}
+                                                    out of 5 based on{" "}
+                                                    <span className="rating">
+                                                        {destination.rating}
+                                                    </span>{" "}
+                                                    ({destination.rating} Rating)
                                                 </span>
                                             </div>
-                                            <Link to={destination.link} className="woocommerce-review-link">
-                                                (<span className="count">{destination.rating}</span> Rating)
+                                            <Link
+                                                to={destination.link}
+                                                className="woocommerce-review-link"
+                                            >
+                                                (<span className="count">{destination.rating}</span>{" "}
+                                                Rating)
                                             </Link>
                                         </div>
                                         <h4 className="tour-card_price">
-                                            <span className="currency">${destination.price}.00</span>/Person
+                                            <span className="currency">
+                                                {destination.price.toLocaleString("vi-VN")}đ
+                                            </span>
+                                            /Người
                                         </h4>
                                         <div className="tour-action">
                                             <span>
-                                                <i className="fa-light fa-clock" /> {destination.duration}
+                                                <i className="fa-light fa-clock" />{" "}
+                                                {destination.duration}
                                             </span>
                                             <Link to="/contact" className="th-btn style4">
-                                                Book Now
+                                                Đặt Ngay
                                             </Link>
                                         </div>
                                     </div>

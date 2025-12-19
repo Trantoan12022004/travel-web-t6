@@ -8,16 +8,56 @@ import { Link } from "react-router-dom";
 function CategoryTwo() {
     const swiperRef = useRef(null);
     const categories = [
-        { id: 1, title: "Cruises", img: "/assets/img/category/category_1_1.jpg" },
-        { id: 2, title: "Hiking", img: "/assets/img/category/category_1_2.jpg" },
-        { id: 3, title: "Airbirds", img: "/assets/img/category/category_1_3.jpg" },
-        { id: 4, title: "Wildlife", img: "/assets/img/category/category_1_4.jpg" },
-        { id: 5, title: "Walking", img: "/assets/img/category/category_1_5.jpg" },
-        { id: 6, title: "Cruises", img: "/assets/img/category/category_1_1.jpg" },
-        { id: 7, title: "Hiking", img: "/assets/img/category/category_1_2.jpg" },
-        { id: 8, title: "Airbirds", img: "/assets/img/category/category_1_3.jpg" },
-        { id: 9, title: "Wildlife", img: "/assets/img/category/category_1_4.jpg" },
-        { id: 10, title: "Walking", img: "/assets/img/category/category_1_5.jpg" },
+        {
+            id: 1,
+            title: "Du Thuyền",
+            img: "https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=800&q=80",
+        }, // Halong Bay cruise
+        {
+            id: 2,
+            title: "Trekking",
+            img: "https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=800&q=80",
+        }, // Sapa trekking
+        {
+            id: 3,
+            title: "Biển Đảo",
+            img: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&q=80",
+        }, // Beach islands
+        {
+            id: 4,
+            title: "Văn Hóa",
+            img: "https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=800&q=80",
+        }, // Cultural tours
+        {
+            id: 5,
+            title: "Ẩm Thực",
+            img: "https://images.unsplash.com/photo-1559339352-11d035aa65de?w=800&q=80",
+        }, // Food tours
+        {
+            id: 6,
+            title: "Phiêu Lưu",
+            img: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
+        }, // Adventure
+        {
+            id: 7,
+            title: "Thành Phố",
+            img: "https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=800&q=80",
+        }, // City tours
+        {
+            id: 8,
+            title: "Nghỉ Dưỡng",
+            img: "https://images.unsplash.com/photo-1540541338287-41700207dee6?w=800&q=80",
+        }, // Resort
+        {
+            id: 9,
+            title: "Lịch Sử",
+            img: "https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=800&q=80",
+        }, // Historical sites
+        {
+            id: 10,
+            title: "Thiên Nhiên",
+            img: "https://images.unsplash.com/photo-1528127269322-539801943592?w=800&q=80",
+        }, // Nature
     ];
 
     useEffect(() => {
@@ -50,7 +90,9 @@ function CategoryTwo() {
                 if (ty < 0) ty = 0;
 
                 const transformOrigin = r < 0 ? "left top" : "right top";
-                slide.style.transform = `translate(0, ${ty}px) rotate(${-r * multiplier.rotate}deg)`;
+                slide.style.transform = `translate(0, ${ty}px) rotate(${
+                    -r * multiplier.rotate
+                }deg)`;
                 slide.style.transformOrigin = transformOrigin;
             });
         };
@@ -69,8 +111,8 @@ function CategoryTwo() {
         <section className="category-area2 bg-top-center">
             <div className="container th-container">
                 <div className="title-area text-center">
-                    <span className="sub-title">Wonderful Place For You</span>
-                    <h2 className="sec-title">Tour Categories</h2>
+                    {/* <span className="sub-title">Điểm Đến Tuyệt Vời Dành Cho Bạn</span> */}
+                    <h2 className="sec-title">Danh Mục Tour Du Lịch</h2>
                 </div>
 
                 <Swiper
@@ -100,12 +142,12 @@ function CategoryTwo() {
                                     <Link to="/destination">{category.title}</Link>
                                 </h3>
                                 <Link className="line-btn" to="/destination">
-                                    See more
+                                    Xem thêm
                                 </Link>
                             </div>
                         </SwiperSlide>
                     ))}
-                <div className="swiper-pagination position-relative"></div>
+                    <div className="swiper-pagination position-relative"></div>
                 </Swiper>
             </div>
         </section>

@@ -262,7 +262,7 @@ const DashboardStats = () => {
                                             {topToursType === "revenue" ? (
                                                 <>
                                                     <td className="text-end">
-                                                        <span className="badge bg-success">
+                                                        <span className="">
                                                             {formatCurrency(tour.totalRevenue || 0)}
                                                         </span>
                                                     </td>
@@ -273,8 +273,7 @@ const DashboardStats = () => {
                                             ) : (
                                                 <>
                                                     <td className="text-center">
-                                                        <span className="badge bg-warning text-dark">
-                                                            ⭐{" "}
+                                                        <span className="text-dark">
                                                             {tour.ratingAvg
                                                                 ? Number(tour.ratingAvg).toFixed(1)
                                                                 : "0.0"}

@@ -2,11 +2,21 @@ import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import Modal from "../Gallery/Modal";
 import useTourStore from "../../Stores/tour";
+import useReviewStore from "../../Stores/review";
 
 function DestinationDetailsMain() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modalImage, setModalImage] = useState("");
     const { id } = useParams();
+
+    // Review form state
+    const [reviewForm, setReviewForm] = useState({
+        rating: "",
+        comment: "",
+    });
+    const [reviewError, setReviewError] = useState("");
+    const [reviewSuccess, setReviewSuccess] = useState("");
+
     const formatVND = (value) => {
         if (value === null || value === undefined || isNaN(value)) return "0 ₫";
         return new Intl.NumberFormat("vi-VN", {
@@ -14,6 +24,7 @@ function DestinationDetailsMain() {
             currency: "VND",
         }).format(value);
     };
+
     const {
         currentTour,
         relatedTours,
@@ -23,6 +34,8 @@ function DestinationDetailsMain() {
         getRelatedTours,
         clearCurrentTour,
     } = useTourStore();
+
+    const { createReview, loading: reviewLoading } = useReviewStore();
 
     useEffect(() => {
         if (id) {
@@ -42,6 +55,60 @@ function DestinationDetailsMain() {
     };
 
     const closeModal = () => setIsModalOpen(false);
+
+    // Handle review form change
+    const handleReviewChange = (e) => {
+        const { name, value } = e.target;
+        setReviewForm((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
+        setReviewError("");
+    };
+
+    // Handle review submit
+    const handleReviewSubmit = async (e) => {
+        e.preventDefault();
+        setReviewError("");
+        setReviewSuccess("");
+
+        // Check if user is logged in
+        const token = localStorage.getItem("accessToken");
+        if (!token) {
+            setReviewError("Vui lòng đăng nhập để đánh giá!");
+            return;
+        }
+
+        // Validate form
+        if (!reviewForm.rating) {
+            setReviewError("Vui lòng chọn số sao đánh giá!");
+            return;
+        }
+
+        if (!reviewForm.comment.trim()) {
+            setReviewError("Vui lòng nhập nội dung đánh giá!");
+            return;
+        }
+
+        try {
+            await createReview(id, {
+                rating: parseInt(reviewForm.rating),
+                comment: reviewForm.comment,
+            });
+
+            setReviewSuccess("Đánh giá của bạn đã được gửi thành công!");
+            setReviewForm({ rating: "", comment: "" });
+
+            // Refresh tour data to get updated reviews
+            setTimeout(() => {
+                getTourById(id);
+                setReviewSuccess("");
+            }, 2000);
+        } catch (error) {
+            setReviewError(error.message || "Không thể gửi đánh giá. Vui lòng thử lại!");
+        }
+    };
+
     if (isLoading) {
         return (
             <section className="space">
@@ -283,53 +350,79 @@ function DestinationDetailsMain() {
 
                                 {/* Comment Form */}
                                 <div className="th-comment-form">
-                                    <div className="row">
-                                        <h3 className="blog-inner-title h4 mb-2">
-                                            Để Lại Đánh Giá
-                                        </h3>
-                                        <p className="mb-25">
-                                            Email của bạn sẽ không được công khai.
-                                        </p>
-                                        <div className="col-md-6 form-group">
-                                            <input
-                                                type="text"
-                                                placeholder="Họ và Tên*"
-                                                className="form-control"
-                                            />
-                                            <i className="far fa-user" />
+                                    <form onSubmit={handleReviewSubmit}>
+                                        <div className="row">
+                                            <h3 className="blog-inner-title h4 mb-2">
+                                                Để Lại Đánh Giá
+                                            </h3>
+                                            <p className="mb-25">
+                                                Chia sẻ trải nghiệm của bạn về tour này.
+                                            </p>
+
+                                            {/* Success Message */}
+                                            {reviewSuccess && (
+                                                <div className="col-12 mb-3">
+                                                    <div
+                                                        className="alert alert-success"
+                                                        role="alert"
+                                                    >
+                                                        {reviewSuccess}
+                                                    </div>
+                                                </div>
+                                            )}
+
+                                            {/* Error Message */}
+                                            {reviewError && (
+                                                <div className="col-12 mb-3">
+                                                    <div
+                                                        className="alert alert-danger"
+                                                        role="alert"
+                                                    >
+                                                        {reviewError}
+                                                    </div>
+                                                </div>
+                                            )}
+
+                                            <div className="col-12 form-group">
+                                                <select
+                                                    className="form-control"
+                                                    name="rating"
+                                                    value={reviewForm.rating}
+                                                    onChange={handleReviewChange}
+                                                    required
+                                                >
+                                                    <option value="">Chọn đánh giá</option>
+                                                    <option value="5">⭐⭐⭐⭐⭐ - Xuất sắc</option>
+                                                    <option value="4">⭐⭐⭐⭐ - Rất tốt</option>
+                                                    <option value="3">⭐⭐⭐ - Tốt</option>
+                                                    <option value="2">⭐⭐ - Trung bình</option>
+                                                    <option value="1">⭐ - Kém</option>
+                                                </select>
+                                            </div>
+                                            <div className="col-12 form-group">
+                                                <textarea
+                                                    placeholder="Nhập đánh giá của bạn về tour này..."
+                                                    className="form-control"
+                                                    name="comment"
+                                                    value={reviewForm.comment}
+                                                    onChange={handleReviewChange}
+                                                    rows="5"
+                                                    required
+                                                />
+                                                <i className="far fa-pencil" />
+                                            </div>
+                                            <div className="col-12 form-group mb-0">
+                                                <button
+                                                    type="submit"
+                                                    className="th-btn"
+                                                    disabled={reviewLoading}
+                                                >
+                                                    {reviewLoading ? "Đang gửi..." : "Gửi Đánh Giá"}
+                                                    <img src="/assets/img/icon/plane2.svg" alt="" />
+                                                </button>
+                                            </div>
                                         </div>
-                                        <div className="col-md-6 form-group">
-                                            <input
-                                                type="email"
-                                                placeholder="Email của bạn*"
-                                                className="form-control"
-                                            />
-                                            <i className="far fa-envelope" />
-                                        </div>
-                                        <div className="col-12 form-group">
-                                            <select className="form-control">
-                                                <option value="">Chọn đánh giá</option>
-                                                <option value="5">5 Sao</option>
-                                                <option value="4">4 Sao</option>
-                                                <option value="3">3 Sao</option>
-                                                <option value="2">2 Sao</option>
-                                                <option value="1">1 Sao</option>
-                                            </select>
-                                        </div>
-                                        <div className="col-12 form-group">
-                                            <textarea
-                                                placeholder="Đánh giá của bạn*"
-                                                className="form-control"
-                                            />
-                                            <i className="far fa-pencil" />
-                                        </div>
-                                        <div className="col-12 form-group mb-0">
-                                            <button className="th-btn">
-                                                Gửi Đánh Giá
-                                                <img src="/assets/img/icon/plane2.svg" alt="" />
-                                            </button>
-                                        </div>
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
